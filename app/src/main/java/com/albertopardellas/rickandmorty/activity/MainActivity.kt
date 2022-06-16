@@ -15,7 +15,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
@@ -41,9 +40,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RickAndMortyTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(top = 8.dp, bottom = 8.dp),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     CharacterList(viewModel = characterViewModel, context = this)
@@ -59,20 +59,16 @@ fun CharacterItem(character: Result, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .padding(
-                bottom = 5.dp, top = 5.dp,
-                start = 5.dp, end = 5.dp
+                bottom = 8.dp, top = 8.dp,
+                start = 16.dp, end = 16.dp
             )
             .fillMaxWidth()
             .clickable(onClick = onClick),
-        shape = RoundedCornerShape(15.dp),
+        shape = RoundedCornerShape(16.dp)
     ) {
-        Row(
-            modifier = Modifier
-                .clip(RoundedCornerShape(4.dp))
-        ) {
+        Row {
             Surface(
-                modifier = Modifier.size(130.dp),
-                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier.size(100.dp),
             ) {
                 val image = rememberCoilPainter(
                     request = character.image,
@@ -82,8 +78,7 @@ fun CharacterItem(character: Result, onClick: () -> Unit) {
                     painter = image,
                     contentDescription = null,
                     modifier = Modifier
-                        .height(100.dp)
-                        .clip(shape = RoundedCornerShape(12.dp)),
+                        .height(100.dp),
                     contentScale = ContentScale.Crop
                 )
             }
@@ -106,13 +101,12 @@ fun CharacterItem(character: Result, onClick: () -> Unit) {
 }
 
 @Composable
-fun CharacterList(modifier: Modifier = Modifier, viewModel: CharacterViewModel, context: Context) {
-    UserInfoList(modifier, characterList = viewModel.characters, context)
+fun CharacterList(viewModel: CharacterViewModel, context: Context) {
+    CharaterInfoList(characterList = viewModel.characters, context)
 }
 
 @Composable
-fun UserInfoList(
-    modifier: Modifier,
+fun CharaterInfoList(
     characterList: Flow<PagingData<Result>>,
     context: Context
 ) {
@@ -148,6 +142,5 @@ fun UserInfoList(
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    RickAndMortyTheme {
-    }
+    RickAndMortyTheme {}
 }
