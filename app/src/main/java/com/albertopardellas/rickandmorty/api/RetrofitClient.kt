@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitClient {
     private fun getClient(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/character")
+            .baseUrl("https://rickandmortyapi.com/api/")
             .client(getOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build()

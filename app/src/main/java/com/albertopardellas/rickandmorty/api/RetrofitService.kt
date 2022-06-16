@@ -5,6 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface RetrofitService {
-    @GET("users")
+    @GET("character")
     suspend fun getCharacterList(@Query("page") page: Int): CharacterResponse
 }
