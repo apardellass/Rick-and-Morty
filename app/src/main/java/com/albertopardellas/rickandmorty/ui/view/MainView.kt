@@ -68,6 +68,7 @@ fun CharaterInfoList(
                     CharacterItem(character = result, onClick = {
                         result.location?.url?.let { url ->
                             viewModel.getLocationDetails(url)
+                            viewModel.selectedCharacter = result
                             navController.navigate("detail")
                         } ?: run {
                             Toast.makeText(
@@ -135,12 +136,11 @@ fun CharacterItem(character: Result, onClick: () -> Unit) {
                     .padding(start = 12.dp)
                     .align(Alignment.CenterVertically)
             ) {
-                character.name?.let {
+                character.name?.let { name ->
                     Text(
-                        text = it,
+                        text = name,
                         fontWeight = FontWeight.Bold,
                         style = TextStyle(fontSize = 22.sp),
-                        color = Color.Black
                     )
                 }
             }

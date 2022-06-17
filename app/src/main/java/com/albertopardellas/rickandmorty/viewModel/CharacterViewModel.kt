@@ -23,6 +23,7 @@ class CharacterViewModel : ViewModel() {
 
     var locationDetail: LocationDetail by mutableStateOf(LocationDetail())
     var errorMessage: String by mutableStateOf("")
+    var selectedCharacter: Result? = null
 
     fun getLocationDetails(url: String) {
         viewModelScope.launch {
