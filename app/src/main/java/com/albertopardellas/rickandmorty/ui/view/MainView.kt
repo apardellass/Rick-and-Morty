@@ -1,5 +1,6 @@
 package com.albertopardellas.rickandmorty.ui.view
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -46,7 +47,7 @@ fun MainView(navController: NavController, viewModel: CharacterViewModel) {
                     .padding(top = 64.dp, bottom = 8.dp),
                 color = MaterialTheme.colorScheme.background
             ) {
-                CharaterInfoList(characterList = viewModel.characters, navController)
+                CharaterInfoList(characterList = viewModel.characters, navController, viewModel)
             }
         },
     )
@@ -55,7 +56,8 @@ fun MainView(navController: NavController, viewModel: CharacterViewModel) {
 @Composable
 fun CharaterInfoList(
     characterList: Flow<PagingData<Result>>,
-    navController: NavController
+    navController: NavController,
+    viewModel: CharacterViewModel
 ) {
     val characterListItems: LazyPagingItems<Result> = characterList.collectAsLazyPagingItems()
 
@@ -64,7 +66,16 @@ fun CharaterInfoList(
             item.let {
                 it?.let { result ->
                     CharacterItem(character = result, onClick = {
-                        navController.navigate("detail/${result.id}")
+                        result.location?.url?.let { url ->
+                            viewModel.getLocationDetails(url)
+                            navController.navigate("detail")
+                        } ?: run {
+                            Toast.makeText(
+                                navController.context,
+                                "Error getting character location",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
                     })
                 }
             }
@@ -79,7 +90,11 @@ fun CharaterInfoList(
                     //You can add modifier to manage load state when next response page is loading
                 }
                 loadState.append is LoadState.Error -> {
-                    //You can use modifier to show error message
+                    Toast.makeText(
+                        navController.context,
+                        "Error getting list of characters",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
         }

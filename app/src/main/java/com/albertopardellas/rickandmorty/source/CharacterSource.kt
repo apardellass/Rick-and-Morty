@@ -28,4 +28,5 @@ class CharacterSource : PagingSource<Int, Result>() {
             return LoadResult.Error(exception)
         }
     }
+
 }

@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
 
-            composable(route = "detail/{id}") {
+            composable(route = "detail") {
                 CharacterLocationView(
                     viewModel = characterViewModel,
                     navController = navController,
