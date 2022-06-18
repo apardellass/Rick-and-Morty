@@ -22,7 +22,7 @@ class CharacterViewModel : ViewModel() {
     }.flow.cachedIn(viewModelScope)
 
     var locationDetail: LocationDetail by mutableStateOf(LocationDetail())
-    var errorMessage: String by mutableStateOf("")
+    private var errorMessage: String by mutableStateOf("")
     var selectedCharacter: Result? = null
 
     fun getLocationDetails(url: String) {

@@ -10,7 +10,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -29,6 +28,7 @@ import com.albertopardellas.rickandmorty.viewModel.CharacterViewModel
 import com.google.accompanist.coil.rememberCoilPainter
 import kotlinx.coroutines.flow.Flow
 
+@Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainView(navController: NavController, viewModel: CharacterViewModel) {
@@ -102,6 +102,7 @@ fun CharaterInfoList(
     }
 }
 
+@Suppress("OPT_IN_IS_NOT_ENABLED")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterItem(character: Result, onClick: () -> Unit) {
