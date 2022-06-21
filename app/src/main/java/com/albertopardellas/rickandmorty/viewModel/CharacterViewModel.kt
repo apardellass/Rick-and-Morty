@@ -1,5 +1,7 @@
 package com.albertopardellas.rickandmorty.viewModel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -25,12 +27,18 @@ class CharacterViewModel : ViewModel() {
     private var errorMessage: String by mutableStateOf("")
     var selectedCharacter: Result? = null
 
-    fun getLocationDetails(url: String) {
+    fun getLocationDetails(url: String, context: Context) {
         viewModelScope.launch {
             try {
                 locationDetail = LocationDetailSource().getLocationDetails(url)
             } catch (e: Exception) {
                 errorMessage = e.message.toString()
+
+                Toast.makeText(
+                    context,
+                    "Error getting character location",
+                    Toast.LENGTH_LONG
+                ).show()
             }
         }
     }

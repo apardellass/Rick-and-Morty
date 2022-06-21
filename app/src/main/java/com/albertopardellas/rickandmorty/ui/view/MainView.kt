@@ -67,7 +67,7 @@ fun CharaterInfoList(
                 it?.let { result ->
                     CharacterItem(character = result, onClick = {
                         result.location?.url?.let { url ->
-                            viewModel.getLocationDetails(url)
+                            viewModel.getLocationDetails(url, navController.context)
                             viewModel.selectedCharacter = result
                             navController.navigate("detail")
                         } ?: run {
