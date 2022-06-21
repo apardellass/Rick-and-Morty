@@ -84,16 +84,17 @@ fun CharaterInfoList(
 
         characterListItems.apply {
             when {
-                loadState.refresh is LoadState.Loading -> {
-                    //You can add modifier to manage load state when first time response page is loading
-                }
-                loadState.append is LoadState.Loading -> {
-                    //You can add modifier to manage load state when next response page is loading
+                loadState.refresh is LoadState.Error -> {
+                    Toast.makeText(
+                        navController.context,
+                        "Error refreshing list of characters",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 loadState.append is LoadState.Error -> {
                     Toast.makeText(
                         navController.context,
-                        "Error getting list of characters",
+                        "Error appending list of characters",
                         Toast.LENGTH_LONG
                     ).show()
                 }
